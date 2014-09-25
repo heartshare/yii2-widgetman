@@ -11,8 +11,20 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "*"
+	    "yiisoft/yii2": "*",
+	    "insolita/yii2-widgets": "dev-master",
+	    "insolita/yii2-supergrid": "dev-master"
     },
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/Insolita/supergrid.git"
+		},
+		{
+			"type": "git",
+			"url": "https://github.com/Insolita/yii2-widgets.git"
+		}
+	],
     "autoload": {
         "psr-4": {
             "insolita\\widgetman\\": ""
