@@ -54,7 +54,7 @@ class IWidget extends Widget
         } elseif ($this->mode == self::MODE_PANEL) {
             return $this->renderPanel();
         }elseif ($this->mode == self::MODE_INFO) {
-            return $this->renderPanel();
+            return $this->renderInfo();
         } else {
             return $this->renderFlat();
         }
