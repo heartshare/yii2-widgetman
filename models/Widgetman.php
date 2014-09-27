@@ -111,7 +111,7 @@ class Widgetman extends SActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
-
+        Yii::$app->getCache()->deleteDirect('@frontend/runtime/cache','','widgetman_' . $this->position . $this->id);
         return parent::afterSave($insert, $changedAttributes);
     }
 
