@@ -60,7 +60,12 @@ class WidgetmanController extends Controller
 
         ];
     }
-
+    public function beforeAction($action)
+    {
+        parent::beforeAction($action);
+        Yii::$app->getModule('supergrid')->setLookmod('newpage');
+        return true;
+    }
     public function actions()
     {
         $actions = [

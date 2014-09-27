@@ -49,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'pjaxSelector' => '#gridpjax',
                     'autofocus' => '#widgetman-name',
 
+
                 ]
             ],
         ]
