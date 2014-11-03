@@ -208,7 +208,28 @@ class WidgetmanModule extends Module
     {
         if(in_array($pos,$this->dyn_places)){
             if(isset($this->routes_pref[$route])){
-                $pos=$pos.$this->routes_pref[$route];
+                $epos=$pos.$this->routes_pref[$route];
+                if (isset($this->fullCache[$epos])) {
+                    $widgets=$this->fullCache[$epos];
+                    $db=\Yii::$app->getDb();
+                    $dep = new DbDependency(['sql'=>"SELECT MAX(updated) FROM {{%widgetman}}",'reusable'=>true]);
+                    foreach ($widgets as $widget) {
+                        $class = $widget['class'];
+                        /**@var Widgetman $model * */
+                        $cache = \Yii::$app->cache->get('widgetman_' . $epos . $widget['id']);
+                        if (!$cache || $widget['cachetime'] == 0 || !in_array($class, $this->getCachedWidget())) {
+                            $widget['options'] = Json::decode($widget['options']);
+                            $cache = $class::widget($widget['options']);
+                            if ($widget['cachetime'] > 0 && in_array($class, $this->cachedList)) {
+                                $duration = $widget['cachetime'] == 999999 ? 0 : $widget['cachetime'];
+                                \Yii::$app->cache->set('widgetman_' . $epos . $widget['id'], $cache, $duration,$dep);
+                            }
+                        }
+                        echo $cache;
+                    }
+                }else{
+                    echo '';
+                }
             }
         }
         if (isset($this->fullCache[$pos])) {
